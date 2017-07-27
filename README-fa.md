@@ -8,14 +8,14 @@
 ترمینال اینجا به عنوان معادل فارسی عبارت Command Line به کار رفته است. 
 </p>
 
-<p dir="rtl" align="right">
 [![Ask a Question](https://img.shields.io/badge/%3f-Ask%20a%20Question-ff69b4.svg)](https://airtable.com/shrzMhx00YiIVAWJg)
 
 [![Join the chat at https://gitter.im/jlevy/the-art-of-command-line](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jlevy/the-art-of-command-line?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-</p>
 
 <p dir="rtl" align="right">
 - [مقدمه](#meta)
+</p>
+<p dir="rtl" align="right">
 - [اصول](#basics)
 - [استفاده روزمره](#everyday-use)
 - [پردازش فایل و داده](#processing-files-and-data)
