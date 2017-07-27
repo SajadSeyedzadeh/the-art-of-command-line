@@ -27,20 +27,17 @@
 ![curl -s 'https://raw.githubusercontent.com/jlevy/the-art-of-command-line/master/README.md' | egrep -o '`\w+`' | tr -d '`' | cowsay -W50](cowsay.png)
 
 <p dir="rtl" align="right">
-توانایی در کار با ترمینال اغلب نادیده گرفته می‌شود، اما در انعطاف و بازدهی مهندسین نرم‌تافزار تاثیرگذار است. این تاثیرات گاه آشکار و گاه غیرمحسوس هستند. 
+توانایی در کار با ترمینال اغلب نادیده گرفته می‌شود، اما در انعطاف و بازدهی مهندسین نرم‌تافزار تاثیرگذار است. این تاثیرات گاه آشکار و گاه غیرمحسوس هستند. این مجموعه گزیده‌ایست از یادداشت‌ها و نکته‌هایی که در استفاده از ترمینال سیستم عامل لینوکس یه شما کمک خواهند کرد. بعضی از این نکات مبتدی و بعضی جزیی و پیچیده و ناشناخته هستند. این مستند طولانی نیست اما اگر تمام مطالب این صفحه را به خاطر داشته باشید، در کار با ترمینال خیلی توانمندتر خواهید بود. 
 </p>
 
-Fluency on the command line is a skill often neglected or considered arcane, but it improves your flexibility and productivity as an engineer in both obvious and subtle ways. This is a selection of notes and tips on using the command-line that we've found useful when working on Linux. Some tips are elementary, and some are fairly specific, sophisticated, or obscure. This page is not long, but if you can use and recall all the items here, you know a lot.
+<p dir="rtl" align="right">
+این کار حاصل زحمات [بسیاری از مترجمین و نویسندگان](AUTHORS.md) است. برخی از مواردی که در این مستند می‌بینید در سایت پرسش و پاسخ [کورا](https://quora.com) نگاشته شده و پس از آن به گیت هاب منتقل گردیده است. اگر سوالی در مورد استفاده از ترمینال دارید لطفا سوال خود را [اینجا](https://airtable.com/shrzMhx00YiIVAWJg) مطرح کنید. همچنین، اگر اشتباهی در این مستند می‌بینید یا هر قسمتی که می‌توان آن را بهبود داد، می‌توانید با [کمک کردن](/CONTRIBUTING.md) به این ریپازیتوری به گسترش آن کمک کنید. 
+</p>
 
-This work is the result of [many authors and translators](AUTHORS.md).
-Some of this
-[originally](http://www.quora.com/What-are-some-lesser-known-but-useful-Unix-commands)
-[appeared](http://www.quora.com/What-are-the-most-useful-Swiss-army-knife-one-liners-on-Unix)
-on [Quora](http://www.quora.com/What-are-some-time-saving-tips-that-every-Linux-user-should-know),
-but it has since moved to GitHub, where people more talented than the original author have made numerous improvements.
-[**Please submit a question**](https://airtable.com/shrzMhx00YiIVAWJg) if you have a question related to the command line. [**Please contribute**](/CONTRIBUTING.md) if you see an error or something that could be better!
 
-## Meta
+<h2 dir="rtl" align="right">
+مقدمه
+</h2>
 
 Scope:
 
