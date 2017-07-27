@@ -39,14 +39,24 @@
 مقدمه
 </h2>
 
-Scope:
+<p dir="rtl" align="right">
+مخاطب این مستند کیست؟
 
-- This guide is both for beginners and the experienced. The goals are *breadth* (everything important), *specificity* (give concrete examples of the most common case), and *brevity* (avoid things that aren't essential or digressions you can easily look up elsewhere). Every tip is essential in some situation or significantly saves time over alternatives.
-- This is written for Linux, with the exception of the "[OS X only](#os-x-only)" and "[Windows only](#windows-only)" sections. Many of the other items apply or can be installed on other Unices or OS X (or even Cygwin).
-- The focus is on interactive Bash, though many tips apply to other shells and to general Bash scripting.
-- It includes both "standard" Unix commands as well as ones that require special package installs -- so long as they are important enough to merit inclusion.
+- این مستند مناسب برای همه افراد، چه مبتدی و چه باتجربه است. اهداف این مستند پوشش دادن سطح وسیعی از موضوعات، پرداختن به جزییات موضوع (با مثال‌هایی از مهم‌ترین موارد استفاده هر دستور) و اختصار (پرهیز از مواردی که الزاما مورد استفاده قرار نخواهند گرفت) است. تمامی موارد درج شده در این مستند در برخی شرایط بسیار مهم و مورد استفاده است و منجر به کاهش زمان انجام کار می‌شود. 
 
-Notes:
+- این مستند، به جز قسمت های مخصوص ویندوز و مخصوص OSX برای کاربران لینوکس نوشته شده است. بسیاری از موارد مطرح شده در سایر بخش‌ها قابل نصب روی سایر سیستم‌عامل ها هستند. 
+
+- تمرکز این مستند روی Bash است، هر چند برخی از نکات گفته شده ممکن است در سایر Shell ها قابل استفاده باشند. 
+
+- این مستند هم شامل دستوراتی است که به صورت پیش فرض در ترمینال لینوکس قابل دسترسی هستند و هم دستوراتی که نیاز به نصب پکیج‌های مخصوص خود را دارند.
+</p>
+
+<p dir="rtl" align="right">
+توجه:
+
+- برای اینکه حجم مطالب را به یک صفحه محدود کنیم، برخی مطالب همراه با منابعی درج شده‌اند. می‌توانید برای اطلاعات بیشتر حول یک موضوع به لینک‌هایی که برای مطالعه بیشتر معرفی شده مراجعه کنید یا با سرچ در اینترنت قسمت‌هایی که جایی در این مستند نداشته‌اند را یاد بگیرید. برای نصب پکیج‌های جدید از `apt-get`, `yum`, `dnf`, `pacman`, `pip` یا `brew` (با توجه به نسخه سیستم‌عامل خود) استفاده کنید. 
+
+</p>
 
 - To keep this to one page, content is implicitly included by reference. You're smart enough to look up more detail elsewhere once you know the idea or command to Google. Use `apt-get`, `yum`, `dnf`, `pacman`, `pip` or `brew` (as appropriate) to install new programs.
 - Use [Explainshell](http://explainshell.com/) to get a helpful breakdown of what commands, options, pipes etc. do.
