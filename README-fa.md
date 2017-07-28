@@ -88,7 +88,7 @@
 </p>
 
 <h2 id="basics" dir="rtl" align="right">
-مقدمه
+اصول
 </h2>
 
 <p dir="rtl" align="right">
@@ -158,16 +158,36 @@ Bash مقدماتی یاد بگیرید. می‌توانید با تایپ کر�
 </ul>
 </p>
 
-## Everyday use
 
-- In Bash, use **Tab** to complete arguments or list all available commands and **ctrl-r** to search through command history (after pressing, type to search, press **ctrl-r** repeatedly to cycle through more matches, press **Enter** to execute the found command, or hit the right arrow to put the result in the current line to allow editing).
+<h2 id="everyday-use" dir="rtl" align="right">
+استفاده روزمره
+</h2>
 
-- In Bash, use **ctrl-w** to delete the last word, and **ctrl-u** to delete the content from current cursor back to the start of the line. Use **alt-b** and **alt-f** to move by word, **ctrl-a** to move cursor to beginning of line,  **ctrl-e** to move cursor to end of line, **ctrl-k** to kill to the end of the line, **ctrl-l** to clear the screen. See `man readline` for all the default keybindings in Bash. There are a lot. For example **alt-.** cycles through previous arguments, and **alt-*** expands a glob.
+<p dir="rtl" align="right">
+<ul>
+<li>
 
+در Bash با استفاده از **Tab** می‌توانید ورودی‌های برنامه را کامل کنید یا لیستی از همه‌ی دستورات ممکن را ببینید. با استفاده **ctrl-r** می‌توانید در سابقه دستوراتی که اجرا کرده‌اید بگردید‌ (بعد از فشار دادن **ctrl-r** تایپ کنید تا در دستورات گذشته بگردید و هر وقت دستور مورد نظر شما پیدا شد با **enter** آن را اجرا کنید یا با فشار دادن کلید فلش چپ به انتهای دستور پیدا شده رفته و آن را قبل از اجرا ویرایش کنید).
 
-- Alternatively, if you love vi-style key-bindings, use `set -o vi` (and `set -o emacs` to put it back).
+</li>
+<li>
 
-- For editing long commands, after setting your editor (for example `export EDITOR=vim`), **ctrl-x** **ctrl-e** will open the current command in an editor for multi-line editing. Or in vi style, **escape-v**.
+در Bash با **ctrl-w** می‌توانید آخرین کلمه تایپ شده در ترمینال را پاک کنید. با **ctrl-u** کلمات تایپ شده قبل از اشاره‌گر تایپ را پاک کنید. با **alt-b**  و **alt-f** می‌توانید اشاره‌گر را یک کلمه به عقب و جلو ببرید. با **ctrl-a** اشاره‌گر را به ابتدای خط برده و با **ctrl-e** آن را به انتهای خط ببرید. با **ctrl-k** می‌توانید آنچه بعد از اشاره‌گر آمده را cut کنید (گاهی از این تکنیک برای پاک کرده ادامه دستور استفاده می‌شود). با استفاده **ctrl-l** صفحه ترمینال را پاک کنید. برای دیدن همه ترکیب کلید‌های ممکن از `man readline` استفاده کنید. بسیاری از این ترکیب‌های مفید وجود دارد. به عنوان مثال **alt-.** می‌توانید ورودی‌های قبلی برنامه را ببینید و با **alt-*** متغیر یا نام‌ها را گسترش دهید. 
+
+</li>
+<li>
+
+همچنین اگر به ترکیب کلیدها در vim عادت دارید، می‌توانید با دستور `set -o vi` ترکیب کلید‌های vim را در ترمینال داشته باشید (برای برگرداندن به حالت اولیه از `set -o emacs` استفاده کنید).
+
+</li>
+<li>
+
+برای ویرایش کردن دستورات طولانی می‌توانید از ترکیب کلید **ctrl-x** و سپس **ctrl-e** استفاده کنید تا متن دستور در یک ویرایشگر متن ظاهر شود. آنجا می‌توانید متن دستور را ویرایش کنید و سپس آن را اجرا کنید. برای انجام اینکار با ترکیبات کلید‌ها در vim از **escape-v** استفاده کنید.
+
+</li>
+
+</ul>
+</p>
 
 - To see recent commands, use `history`. Follow with `!n` (where `n` is the command number) to execute again. There are also many abbreviations you can use, the most useful probably being `!$` for last argument and `!!` for last command (see "HISTORY EXPANSION" in the man page). However, these are often easily replaced with **ctrl-r** and **alt-.**.
 
