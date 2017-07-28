@@ -32,7 +32,7 @@
 
 <p dir="rtl" align="right">
 این کار حاصل زحمات 
-<a href="AUTHORS.md">بسیاری از مترجمان و نویسندگان</a>
+<a href="	AUTHORS.md">بسیاری از مترجمان و نویسندگان</a>
  است. برخی از مواردی که در این مستند می‌بینید در سایت پرسش و پاسخ
 <a href="https://www.quora.com">کورا</a>
  نگاشته شده و پس از آن به گیت هاب منتقل گردیده است. اگر سوالی در مورد استفاده از ترمینال دارید لطفا سوال خود را 
@@ -91,30 +91,72 @@
 مقدمه
 </h2>
 
-- Learn basic Bash. Actually, type `man bash` and at least skim the whole thing; it's pretty easy to follow and not that long. Alternate shells can be nice, but Bash is powerful and always available (learning *only* zsh, fish, etc., while tempting on your own laptop, restricts you in many situations, such as using existing servers).
+<p dir="rtl" align="right">
+<ul dir="rtl" align="right">
+<li>
 
-- Learn at least one text-based editor well. Ideally Vim (`vi`), as there's really no competition for random editing in a terminal (even if you use Emacs, a big IDE, or a modern hipster editor most of the time).
+Bash مقدماتی یاد بگیرید. می‌توانید با تایپ کردن `man bash` و خواندن اجمالی متن اطلاعات خوبی بگیرید. این متن آسان و کوتاه است. Shell های دیگر در عین حال که می‌توانند خوب و مفید باشند، Bash از سایر گزینه ها بهتر است و تقریبا همواره در دسترس شماست، چه روی لپتاپ، چه روی سرور و غیره.
 
-- Know how to read documentation with `man` (for the inquisitive, `man man` lists the section numbers, e.g. 1 is "regular" commands, 5 is files/conventions, and 8 are for administration). Find man pages with `apropos`. Know that some commands are not executables, but Bash builtins, and that you can get help on them with `help` and `help -d`. You can find out whether a command is an executable, shell builtin or an alias by using `type command`.
+</li>
+<li>
 
-- Learn about redirection of output and input using `>` and `<` and pipes using `|`. Know `>` overwrites the output file and `>>` appends. Learn about stdout and stderr.
+حداقل یکی از نرم‌افزارهای ویرایش متن مبتنی بر ‌Bash را یاد بگیرید (مثلا vim). 
 
-- Learn about file glob expansion with `*` (and perhaps `?` and `[`...`]`) and quoting and the difference between double `"` and single `'` quotes. (See more on variable expansion below.)
+</li>
+<li>
 
-- Be familiar with Bash job management: `&`, **ctrl-z**, **ctrl-c**, `jobs`, `fg`, `bg`, `kill`, etc.
+خواندن متن مستندات تکنولوژی‌های مختلف از طریق `man` را یاد بگیرید. برای اطلاعات بیشتر در مورد `man` از `man man` استفاده کنید که شامل شماره بخش‌های مختلف می‌باشد (مثلا شماره ۱ بخش دستورات "معمولی" است، ۵ بخش بخش قرارداد‌ها و فایل‌هاست و ۸ بخش مدیریتی است). صفحات `man` را از طریق `apropos` پیدا کنید. بدانید که برخی دستورات فایل‌های اجرایی نیست، بلکه دستورات نوشته شده در Bash هستند و با دستور `help` و `help -d` می‌توان در مورد آنها اطلاعات بیشتری به دست آورد. در مورد با تایپ کردن `type command`می‌توانید بفهمید که یک دستور یک فایل اجرایی‌است، یک دستور نوشته شده در Bash است یا یک نام جایگزین برای دستور دیگر (alias).
 
-- Know `ssh`, and the basics of passwordless authentication, via `ssh-agent`, `ssh-add`, etc.
+</li>
+<li>
 
-- Basic file management: `ls` and `ls -l` (in particular, learn what every column in `ls -l` means), `less`, `head`, `tail` and `tail -f` (or even better, `less +F`), `ln` and `ln -s` (learn the differences and advantages of hard versus soft links), `chown`, `chmod`, `du` (for a quick summary of disk usage: `du -hs *`). For filesystem management, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. Learn what an inode is (`ls -i` or `df -i`).
+می توان با کاراکتر‌های `>` و `<` و پایپ‌ (`|`) ورودی و خروجی برنامه را از فایل خواند یا به فایل نوشت. توجه داشته باشید که `<<` خروجی را به محتویات فایل ضمیمه می‌کند در حالی که `<` فایل را بازنویسی می‌کند. تفاوت و مفهوم `stdout` و `stderr` را بدانید.
 
-- Basic network management: `ip` or `ifconfig`, `dig`, `traceroute`, `route`.
+</li>
+<li>
 
-- Learn and use a version control management system, such as `git`.
+می‌توان اسم فایل‌ها را به صورت گسترده به عنوان ورودی به برنامه‌های Bash داد. می‌توان با کاراکتر‌های `*` (و `?` و `[...]`) اسم فایل های ورودی را گسترش داد. در مورد تفاوت " و ' در Bash مطالعه کنید. 
 
-- Know regular expressions well, and the various flags to `grep`/`egrep`. The `-i`, `-o`, `-v`, `-A`, `-B`, and `-C` options are worth knowing.
 
-- Learn to use `apt-get`, `yum`, `dnf` or `pacman` (depending on distro) to find and install packages. And make sure you have `pip` to install Python-based command-line tools (a few below are easiest to install via `pip`).
+</li>
+<li>
 
+با مدیریت جاب در Bash آشنا باشید: `&`, **ctrl-z**, **ctrl-c**, `jobs`, `fg`, `bg`, `kill` و غیره. 
+
+</li>
+<li>
+
+`ssh` بلد باشید. همچنین در مورد تصدیق هویت بدون رمز عبور اطلاعات داشته باشید (از طریق دستوراتی مثل `ssh-agent` و `ssh-add` و غیره)
+
+</li>
+<li>
+
+مدیریت مقدماتی فایل‌ها: `ls` و `ls -l` (به خصوص اینکه هر ستون در خروجی `ls -l` چه معنی‌ای دارد)، `less`, `head`, `tail` و `tail -f` (یا حتی `less +F`). در مورد `ln` و `ln -s` (تفاوت بین لینک‌های نرم - soft - و سخت - hard - را بدانید). دستوراتی مثل `chown` و `chmod` و `du` را بلد باشید. برای مدیریت فایل سیستم این دستورات را بلد باشید: `df` `mount` `fdisk` `mkfs` `lsblk`. یاد بگیرید که معنی inode چیست (`ls -i` یا `df -i`).
+
+</li>
+<li>
+
+برای مدیریت مقدماتی شبکه این دستورات را یاد بگیرید: 
+`ip` یا `ifconfig`, `dig`, `traceroute`, `route`.
+
+</li>
+<li>
+
+در مورد مدیریت نسخه نرم‌افزار از طریق نرم‌افزاهایی مثل `git` مطالعه کنید.
+
+</li>
+<li>
+
+در مورد عبارات با قاعده (Regular Expression) مطالعه کنید. در مورد گزینه‌های `-i`, `-o`, `-v`, `-A`, `-B` و `-C` مربوط به دستور `grep`/`egrep` مطالعه کنید. 
+
+</li>
+<li>
+
+برای پیدا کردن پکیج‌های مختلف از دستورات `apt-get`, `yum`, `dnf` یا `pacman` (بسته به توزیع لینوکس خود) استفاده کنید. همچنین برای نصب ابزارهای مبتنی بر پایتون حتما از `pip` استفاده کنید.
+
+</li>
+</ul>
+</p>
 
 ## Everyday use
 
