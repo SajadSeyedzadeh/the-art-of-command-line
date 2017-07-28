@@ -31,7 +31,7 @@
 </p>
 
 <p dir="rtl" align="right">
-این کار حاصل زحمات [بسیاری از مترجمین و نویسندگان](AUTHORS.md) است. برخی از مواردی که در این مستند می‌بینید در سایت پرسش و پاسخ [کورا](https://quora.com) نگاشته شده و پس از آن به گیت هاب منتقل گردیده است. اگر سوالی در مورد استفاده از ترمینال دارید لطفا سوال خود را [اینجا](https://airtable.com/shrzMhx00YiIVAWJg) مطرح کنید. همچنین، اگر اشتباهی در این مستند می‌بینید یا هر قسمتی که می‌توان آن را بهبود داد، می‌توانید با [کمک کردن](/CONTRIBUTING.md) به این ریپازیتوری به گسترش آن کمک کنید. 
+این کار حاصل زحمات [بسیاری از مترجمان و نویسندگان](AUTHORS.md) است. برخی از مواردی که در این مستند می‌بینید در سایت پرسش و پاسخ [کورا](https://quora.com) نگاشته شده و پس از آن به گیت هاب منتقل گردیده است. اگر سوالی در مورد استفاده از ترمینال دارید لطفا سوال خود را [اینجا](https://airtable.com/shrzMhx00YiIVAWJg) مطرح کنید. همچنین، اگر اشتباهی در این مستند می‌بینید یا هر قسمتی که می‌توان آن را بهبود داد، می‌توانید با [کمک کردن](CONTRIBUTIONS.md) به این ریپازیتوری به گسترش آن کمک کنید. 
 </p>
 
 
@@ -79,11 +79,9 @@
 </ul>
 </p>
 
-- To keep this to one page, content is implicitly included by reference. You're smart enough to look up more detail elsewhere once you know the idea or command to Google. Use `apt-get`, `yum`, `dnf`, `pacman`, `pip` or `brew` (as appropriate) to install new programs.
-- Use [Explainshell](http://explainshell.com/) to get a helpful breakdown of what commands, options, pipes etc. do.
-
-
-## Basics
+<h2 id="basics" dir="rtl" align="right">
+مقدمه
+</h2>
 
 - Learn basic Bash. Actually, type `man bash` and at least skim the whole thing; it's pretty easy to follow and not that long. Alternate shells can be nice, but Bash is powerful and always available (learning *only* zsh, fish, etc., while tempting on your own laptop, restricts you in many situations, such as using existing servers).
 
