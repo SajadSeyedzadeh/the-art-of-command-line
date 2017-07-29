@@ -185,47 +185,96 @@ Bash مقدماتی یاد بگیرید. می‌توانید با تایپ کر�
 برای ویرایش کردن دستورات طولانی می‌توانید از ترکیب کلید **ctrl-x** و سپس **ctrl-e** استفاده کنید تا متن دستور در یک ویرایشگر متن ظاهر شود. آنجا می‌توانید متن دستور را ویرایش کنید و سپس آن را اجرا کنید. برای انجام اینکار با ترکیبات کلید‌ها در vim از **escape-v** استفاده کنید.
 
 </li>
+<li>
 
-</ul>
-</p>
+برای دیدن دستوراتی که اخیرا اجرا شده‌اند از دستور `history` استفاده کنید. در ادامه این دستور از از دستور `!n` (که n شماره دستور است) استفاده کنید تا این دستور دوباره اجرا شود (بخش HISTORY EXPANSION در صفحات `man`مطالعه کنید. البته، این دستورات را می‌توان به راحتی با **ctrl-r** و **alt-.** جایگزین کرد.
 
-- To see recent commands, use `history`. Follow with `!n` (where `n` is the command number) to execute again. There are also many abbreviations you can use, the most useful probably being `!$` for last argument and `!!` for last command (see "HISTORY EXPANSION" in the man page). However, these are often easily replaced with **ctrl-r** and **alt-.**.
+</li>
+<li>
 
-- Go to your home directory with `cd`. Access files relative to your home directory with the `~` prefix (e.g. `~/.bashrc`). In `sh` scripts refer to the home directory as `$HOME`.
+با دستور `cd` دایرکتوری فعلی را تغییر دهید. برای دسترسی به فایل‌ها و فولدرها در دایرکتوری خانه از مسیر `~` استفاده کنید (مثلا `~/.bashrc`). در اسکریپ‌های `sh` برای دسترسی به دایرکتوری خانه از `$HOME` استفاده کنید.
 
-- To go back to the previous working directory: `cd -`.
+</li>
+</li>
 
-- If you are halfway through typing a command but change your mind, hit **alt-#** to add a `#` at the beginning and enter it as a comment (or use **ctrl-a**, **#**, **enter**). You can then return to it later via command history.
+برای رفتن به دایرکتوری قبلی از دستور `cd -` استفاده کنید.
 
-- Use `xargs` (or `parallel`). It's very powerful. Note you can control how many items execute per line (`-L`) as well as parallelism (`-P`). If you're not sure if it'll do the right thing, use `xargs echo` first. Also, `-I{}` is handy. Examples:
+</li>
+<li>
+
+اگر در حین تایپ یک دستور از اجرای آن پشیمان شدید از ترکیب کلید **alt-#** استفاده کنید تا آن دستور به عنوان کامنت ثبت شود (و اجرا نشود). برای اینکار همچنین می‌توانید از **ctrl-a**، **#** و **enter** استفاده کنید. برای برگشتن به این دستور می‌توانید از تاریخچه دستورات استفاده کنید.
+
+</li>
+<li>
+
+از `xargs` و `parallel` استفاده کنید. این دو ابزارهای قدرتمندی هستند. توجه کنید می‌توانید تعداد دفعات اجرا به ازای هر خط (از طریق `-L`) و همچنین تعداد پردازه‌های موازی را (از طریق `-P`) کنترل کنید. اگر در مورد نحووه کار آن مطمئن نیستید ابتدا از `xargs echo` استفاده کنید تا نحوه کار آن را یاد بگیرید. همچنین `-I{}` خیلی کارامد است. مثال:
+
+
 ```bash
       find . -name '*.py' | xargs grep some_function
       cat hosts | xargs -I{} ssh root@{} hostname
 ```
 
-- `pstree -p` is a helpful display of the process tree.
+</li>
+<li>
 
-- Use `pgrep` and `pkill` to find or signal processes by name (`-f` is helpful).
+از `pstree -p` برای نمایش پردازه‌ها استفاده کنید. 
 
-- Know the various signals you can send processes. For example, to suspend a process, use `kill -STOP [pid]`. For the full list, see `man 7 signal`
+</li>
+<li>
 
-- Use `nohup` or `disown` if you want a background process to keep running forever.
+از `pkill` و  `pgrep` برای سیگنال دادن و پیدا کردن پردازه‌های مختلف استفاده کنید (گزینه `-f` را یاد بگیرید).
 
-- Check what processes are listening via `netstat -lntp` or `ss -plat` (for TCP; add `-u` for UDP) or `lsof -iTCP -sTCP:LISTEN -P -n` (which also works on OX X).
+</li>
+<li>
 
-- See also `lsof` and `fuser` for open sockets and files.
+سیگنال‌های مختلفی که می‌توان به پردازه‌ها ارسال کرد را بدانید. به عنوان مثال برای متوقف کردن یک پردازه از `kill -STOP [pid]` استفاده کنید. برای دیدن لیست کامل از `man 7 signal` استفاده کنید.
 
-- See `uptime` or `w` to know how long the system has been running.
+</li>
+<li>
 
-- Use `alias` to create shortcuts for commonly used commands. For example, `alias ll='ls -latr'` creates a new alias `ll`.
+برای اجرای دستورات تا ابد در پس زمینه از `nohup` و `disown`استفاده کنید.
 
-- Save aliases, shell settings, and functions you commonly use in `~/.bashrc`, and [arrange for login shells to source it](http://superuser.com/a/183980/7106). This will make your setup available in all your shell sessions.
+</li>
+<li>
 
-- Put the settings of environment variables as well as commands that should be executed when you login in `~/.bash_profile`. Separate configuration will be needed for shells you launch from graphical environment logins and `cron` jobs.
+برای دیدن پردازه‌هایی که در حال گوش کردن به شبکه روی پورت‌های مختلف هستند از `netstat -lntp` یا `ss -plat` (برای TCP، برای UDP یک `-u` اضافه کنید) یا `lsof -iTCP -sTCP:LISTEN -P -n` (که روی سیستم عامل OSX هم کار می‌کند) استفاده کنید.
 
-- Synchronize your configuration files (e.g. `.bashrc` and `.bash_profile`) among various computers with Git.
+</li>
+<li>
 
-- Understand that care is needed when variables and filenames include whitespace. Surround your Bash variables with quotes, e.g. `"$FOO"`. Prefer the `-0` or `-print0` options to enable null characters to delimit filenames, e.g. `locate -0 pattern | xargs -0 ls -al` or `find / -print0 -type d | xargs -0 ls -al`. To iterate on filenames containing whitespace in a for loop, set your IFS to be a newline only using `IFS=$'\n'`.
+در مورد دستورات `lsof` و `fuser` برای کار با Socket‌ها و فایل‌های باز شده مطالعه کنید.
+
+</li>
+<li>
+
+از دستور `uptime` یا `w` برای دیدن اینکه سیستم چقدر در حال اجرا بوده است استفاده کنید. 
+
+</li>
+<li>
+
+برای ایجاد کردن نام‌های جایگزین برای دستورات (alias) از دستور `alias` استفاده کنید. مثلا `alias ll='ls -latr'` یک نام جایگزین برای دستور `ls -latr` ایجاد می‌کند.
+
+</li>
+<li>
+
+نام‌های جایگزین دستورات، تنظیمات و تابع‌هایی که مرتبا از آنها استفاده می‌کنید را در فایل `~/.bashrc` ذخیره کنید. کاری کنید که سایر Shell ها از همین تنظیمات استفاده کنند. با اینکار تنظیمات در همه  نشست‌های Shell در دسترس خواهند بود. 
+
+</li>
+<li>
+
+با استفاده از Git تنظیمات خود را در همه کامپیوترهای خود هماهنگ و یکسان نگه دارید.
+
+</li>
+<li>
+
+نام فایل‌ها و فولدرها ممکن است شامل کاراکترهای سفید باشند (منظور اسپیس، تب، خط جدید و امثال آنهاست). متغیرهای Bash خود را با نقل قول دوتایی بنویسید، مثلا `"$FOO"`. از گزینه‌های `-0` یا `-print0` استفاده کنید تا در انتهای نام فایل‌ها کاراکتر null قرار بگیرد (\0) مثلا `locate -0 pattern | xargs -0 ls -al` یا `find / -print0 -type d | xargs -0 ls -al`. با دستور `IFS=$'\n'` می‌توانید IFS را فقط به کاراکتر خط جدید تغییر دهید. 
+
+</li>
+
+
+</ul>
+</p>
 
 - In Bash scripts, use `set -x` (or the variant `set -v`, which logs raw input, including unexpanded variables and comments) for debugging output. Use strict modes unless you have a good reason not to: Use `set -e` to abort on errors (nonzero exit code). Use `set -u` to detect unset variable usages. Consider `set -o pipefail` too, to on errors within pipes, too (though read up on it more if you do, as this topic is a bit subtle). For more involved scripts, also use `trap` on EXIT or ERR. A useful habit is to start a script like this, which will make it detect and abort on common errors and print a message:
 ```bash
