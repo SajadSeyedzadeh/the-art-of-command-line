@@ -433,29 +433,94 @@ Bash مقدماتی یاد بگیرید. می‌توانید با تایپ کر�
 </ul>
 </p>
 
-## Processing files and data
 
-- To locate a file by name in the current directory, `find . -iname '*something*'` (or similar). To find a file anywhere by name, use `locate something` (but bear in mind `updatedb` may not have indexed recently created files).
 
-- For general searching through source or data files (more advanced than `grep -r`), use [`ag`](https://github.com/ggreer/the_silver_searcher).
+<h2 id="everyday-use" dir="rtl" align="right">
+پردازش فایل و داده
+</h2>
 
-- To convert HTML to text: `lynx -dump -stdin`
+<p>
+<ul dir="rtl" align="right">
+<li>
 
-- For Markdown, HTML, and all kinds of document conversion, try [`pandoc`](http://pandoc.org/).
+برای پیدا کردن فایل‌ها در دایرکتوری فعلی از دستور `find . -iname '*something*'` استفاده کنید. برای پیدا کردن فایل در همه دایرکتوری ها از `locate something` استفاده کنید (اما توجه کنید که `updatedb` ممکن است فایل‌هایی که اخیرا ساخته شدن اند را فهرست نکرده باشد). 
 
-- If you must handle XML, `xmlstarlet` is old but good.
+</li>
+<li>
 
-- For JSON, use [`jq`](http://stedolan.github.io/jq/).
+برای جستجو به صورت کلی در فایل‌ها و داده‌ها از 
+<a href="https://github.com/ggreer/the_silver_searcher">ag</a>
+ استفاده کنید. این دستور قابلیت‌های بیشتری از `grep -r` در اختیار شما می‌گذارد. 
 
-- For YAML, use [`shyaml`](https://github.com/0k/shyaml).
+</li>
+<li>
 
-- For Excel or CSV files, [csvkit](https://github.com/onyxfish/csvkit) provides `in2csv`, `csvcut`, `csvjoin`, `csvgrep`, etc.
+برای تبدیل کردن HTML به متن معمولی از `lynx -dump -stdin` استفاده کنید. 
 
-- For Amazon S3, [`s3cmd`](https://github.com/s3tools/s3cmd) is convenient and [`s4cmd`](https://github.com/bloomreach/s4cmd) is faster. Amazon's [`aws`](https://github.com/aws/aws-cli) and the improved [`saws`](https://github.com/donnemartin/saws) are essential for other AWS-related tasks.
+</li>
+<li>
 
-- Know about `sort` and `uniq`, including uniq's `-u` and `-d` options -- see one-liners below. See also `comm`.
+برای تبدیل مارک‌داون، HTML و ... از 
+<a href="https://github.com/ggreer/the_silver_searcher">pandoc</a>
+ استفاده کنید.
 
-- Know about `cut`, `paste`, and `join` to manipulate text files. Many people use `cut` but forget about `join`.
+</li>
+<li>
+
+برای کار کردن با XML از `xmlstarlet` استفاده کنید. 
+
+</li>
+<li>
+
+برای کار کردن با JSON از 
+<a href="http://stedolan.github.io/jq/">jq</a>
+ استفاده کنید.
+
+</li>
+<li>
+
+برای کار کردن با YAML از 
+<a href="https://github.com/0k/shyaml">shyaml</a>
+ استفاده کنید.
+
+</li>
+<li>
+
+برای کار کردن با فایل‌های اکسل یا CSV از 
+<a href=؛https://github.com/onyxfish/csvkit">csvkit</a>
+ استفاده کنید. دستورات `in2csv`, `csvcut`, `csvjoin`, `csvgrep` را در اختیار شما قرار می‌دهد.
+
+</li>
+<li>
+
+برای استفاده از سرویس S3 آمازون، 
+<a href="https://github.com/s3tools/s3cmd">s3cmd</a>
+ ابزار مفیدی است. 
+<a href="https://github.com/bloomreach/s4cmd">s4cmd</a>
+ هم یک جایگزین سریع‌تر برای s3cmd است. کتابخانه‌های 
+<a href="https://github.com/aws/aws-cli">aws</a>
+و نسخه بهبود یافته آن 
+<a href="https://github.com/donnemartin/saws">saws</a>
+برای کار با سرویس‌ها AWS لازم و ضروری هستند.
+
+</li>
+<li>
+
+در مورد `sort` و `uniq` مطالعه کنید، مخصوصا گزینه های `-u` و `-d` در `uniq`. همچنین در مورد `comm` مطالعه کنید.
+
+</li>
+<li>
+
+در مورد `cut` `paste` و `join` مطالعه کنید. این دستورات برای کار با فایل‌های داده خیلی مفید هستند. خیلی از افراد از `cut` استفاده می‌کنند ولی `join` را فراموش می‌کنند.
+
+</li>
+<li>
+
+
+
+</li>
+</ul>
+</p>
 
 - Know about `wc` to count newlines (`-l`), characters (`-m`), words (`-w`) and bytes (`-c`).
 
