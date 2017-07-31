@@ -273,55 +273,87 @@ Bash مقدماتی یاد بگیرید. می‌توانید با تایپ کر�
 </li>
 <li>
 
-در اسکریپت‌های Bash می‌توانید با استفاده از `set -x` (یا `set -v` که ورودی خام را در لاگ می‌نویسد، از جمله کامنت ها و متغیرها) خروجی برنامه را دیباگ کنید. از مدهای strict استفاده کنید مگر اینکه دلیل خوبی برای استفاده نکردن از مد Strict داشته باشید. از `set -x`
+در اسکریپت‌های Bash می‌توانید با استفاده از `set -x` (یا `set -v` که ورودی خام را در لاگ می‌نویسد، از جمله کامنت ها و متغیرها) خروجی برنامه را دیباگ کنید. از مدهای strict استفاده کنید مگر اینکه دلیل خوبی برای استفاده نکردن از مد Strict داشته باشید. از `set -e` برای متوقف کردن خطاها استفاده کنید. از `set -u` برای شناسایی موارد استفاده از متغیرهایی بدون مقدار استفاده کنید. برای یافتن خطاها در پایپ‌ها از `set -o pipefail` استفاده کنید (قبل از استفاده در مورد آن مطالعه کنید، استفاده از آن می‌تواند پیچیده باشد). برای اجرای اسکریپت‌ها می توانید از `trap` هنگام EXIT یا ERR استفاده کنید. یک عادت خوب این است که اسکریپت را به این روش شروع کنید که باعث می‌شود خطاهای رایج را تشخیص دهد و پیامی چاپ کند.
 
-</li>
-
-
-</ul>
-</p>
-
-- In Bash scripts, use `set -x` (or the variant `set -v`, which logs raw input, including unexpanded variables and comments) for debugging output. Use strict modes unless you have a good reason not to: Use `set -e` to abort on errors (nonzero exit code). Use `set -u` to detect unset variable usages. Consider `set -o pipefail` too, to on errors within pipes, too (though read up on it more if you do, as this topic is a bit subtle). For more involved scripts, also use `trap` on EXIT or ERR. A useful habit is to start a script like this, which will make it detect and abort on common errors and print a message:
 ```bash
       set -euo pipefail
       trap "echo 'error: Script failed: see failed command above'" ERR
 ```
 
-- In Bash scripts, subshells (written with parentheses) are convenient ways to group commands. A common example is to temporarily move to a different working directory, e.g.
+</li>
+<li>
+
+در اسکریپت‌های بش، Shell‌های زیر مجموعه که داخل پرانتز نوشته می‌شوند روش خوبی برای قرار دادن چند دستور در یک گروه است. یک مثال ساده جا به جا کردن دایرکتوری کار است:
+
 ```bash
       # do something in current dir
       (cd /some/other/dir && other-command)
       # continue in original dir
 ```
 
-- In Bash, note there are lots of kinds of variable expansion. Checking a variable exists: `${name:?error message}`. For example, if a Bash script requires a single argument, just write `input_file=${1:?usage: $0 input_file}`. Using a default value if a variable is empty: `${name:-default}`. If you want to have an additional (optional) parameter added to the previous example, you can use something like `output_file=${2:-logfile}`. If `$2` is omitted and thus empty, `output_file` will be set to `logfile`. Arithmetic expansion: `i=$(( (i + 1) % 5 ))`. Sequences: `{1..10}`. Trimming of strings: `${var%suffix}` and `${var#prefix}`. For example if `var=foo.pdf`, then `echo ${var%.pdf}.txt` prints `foo.txt`.
+</li>
+<li>
 
-- Brace expansion using `{`...`}` can reduce having to re-type similar text and automate combinations of items.  This is helpful in examples like `mv foo.{txt,pdf} some-dir` (which moves both files), `cp somefile{,.bak}` (which expands to `cp somefile somefile.bak`) or `mkdir -p test-{a,b,c}/subtest-{1,2,3}` (which expands all possible combinations and creates a directory tree).
+توجه کنید که در Bash روش‌های بسیاری برای گسترش اسم متغیرها وجود دارد. مثلا برای چک کردن اینکه یک متغیر وجود دارد: `${name:?error message}`. به عنوان مثال اگر یک Script نیاز فقط به یک آرگمان ورودی دارد، کافیست بنویسید `input_file=${1:?usage: $0 input_file}`. اگر می‌خواهید متغیرهای بیشتر (اختیاری) به مثال قبلی اضافه شود از چیزی شبیه این استفاده کنید: `output_file=${2:-logfile}`. اگر `$2` پاک شود و در نتیجه خالی باشد، مقدار متغیر `output_file` به `logfile` تغییر خواهد کرد. عبارات جبری: `i=$(( (i + 1) % 5 ))`. کوتاه کردین تنظیمات: `${var%suffix}` و `${var#prefix}`. به عنوان مثال `var=foo.pdf` و سپس `echo ${var%.pdf}.txt` این خروجی را خواهد داد: `foo.txt`.
 
-- The output of a command can be treated like a file via `<(some command)`. For example, compare local `/etc/hosts` with a remote one:
-```sh
+</li>
+<li>
+
+گسترش نام متغیرها از طریق آکولاد `{`...`}` می‌تواند از تایپ کردن نام متغیرهایی که شبیه هم هستند جلوگیری کند. این کار در مثال‌هایی مانند `mv foo.{txt,pdf} some-dir` (که هر دو فایل را جا به جا می‌کند)، `cp somefile{,.bak}` (که هر دو فایل را کپی می‌کند. فرم گسترش یافته آن به صورت `cp somefile somefile.bak` است.) و  `mkdir -p test-{a,b,c}/subtest-{1,2,3}` که گسترش یافته آن همه ترکیبات ممکن (۹ حالت متفاوت) را می‌سازد. مفید است. 
+
+</li>
+<li>
+
+از طریق `<(some command)` می‌توانید با خروجی یک دستور مثل یک فایل رفتار کنید. مثلا می‌توانیم فایل /etc/hosts روی کامپیوتر خودمان را با همین فایل روی یک کامپیوتر دیگر مقایسه کنیم:
+
+```bash
       diff /etc/hosts <(ssh somehost cat /etc/hosts)
 ```
 
-- When writing scripts you may want to put all of your code in curly braces. If the closing brace is missing, your script will be prevented from executing due to a syntax error. This makes sense when your script is going to be downloaded from the web, since it prevents partially downloaded scripts from executing:
+</li>
+<li>
+
+هنگام نوشتن اسکریپت، تمام قسمت‌های کد خود را در آکولاد قرار دهید. اگر یکی از آکولادها را فراموش کنید، اسکریپت شما به علت Syntax Error اجرا نخواهد شد. این کار برای زمانی که اسکریپت شما قرار است دانلود شود بسیار مفید است چرا که از اجرا شدن نصفه اسکریپت جلوگیری می‌کند. 
+
 ```bash
 {
       # Your code here
 }
 ```
 
-- Know about "here documents" in Bash, as in `cat <<EOF ...`.
+</li>
+<li>
 
-- In Bash, redirect both standard output and standard error via: `some-command >logfile 2>&1` or `some-command &>logfile`. Often, to ensure a command does not leave an open file handle to standard input, tying it to the terminal you are in, it is also good practice to add `</dev/null`.
+در مورد "here document" ها در Bash مطالعه کنید. مثلا `cat <<EOF ...`. 
 
-- Use `man ascii` for a good ASCII table, with hex and decimal values. For general encoding info, `man unicode`, `man utf-8`, and `man latin1` are helpful.
+</li>
+<li>
 
-- Use `screen` or [`tmux`](https://tmux.github.io/) to multiplex the screen, especially useful on remote ssh sessions and to detach and re-attach to a session. `byobu` can enhance screen or tmux providing more information and easier management. A more minimal alternative for session persistence only is [`dtach`](https://github.com/bogner/dtach).
+در Bash، می‌تواند خروجی Stdout و Stderr را به جای دیگری (به جز صفحه خروجی، مثلا فایل) ارسال کنید: `some-command >logfile 2>&1` یا `some-command &>logfile`. مطمئن شوید که هیچ دستوری اشاره‌گر فایل را باز نمی‌گذارد. جهت اطمینان خوب است که در انتها این را اضافه کنید: `</dev/null`. 
 
-- In ssh, knowing how to port tunnel with `-L` or `-D` (and occasionally `-R`) is useful, e.g. to access web sites from a remote server.
+</li>
+<li>
 
-- It can be useful to make a few optimizations to your ssh configuration; for example, this `~/.ssh/config` contains settings to avoid dropped connections in certain network environments, uses compression (which is helpful with scp over low-bandwidth connections), and multiplex channels to the same server with a local control file:
-```
+برای دیدن جدول کاراکترهای اسکی (ASCII) از `man ascii` استفاده کنید. برای اطلاعات بیشتر در مورد encoding کاراکترها از `man unicode`، `man utf-8` `man latin1` استفاده کنید. 
+
+</li>
+<li>
+
+از `screen` برای چند پنجره‌ای کردن ترمینال استفاده کنید. این دستور به خصوص در ssh و اتصال به کامپیوتر های روی شبکه مفید است. `byobu` می‌تواند با اطلاعات بیشتر و مدیریت آسان‌تر screen راه بهبود دهد. یک جایگزین کوچک و ساده هم 
+<a href="https://github.com/bogner/dtach">dtach</a>
+ است.
+
+</li>
+<li>
+
+در ssh، دانستن اینکه می توان Tunnel را با `-L` یا `-D`پورت کرد مفید اس، مثلا برای دسترسی به یک وبسایت از یک کامپیوتر ریموت. 
+
+</li>
+<li>
+
+می‌توانید با اعمال تنظیمات زیر در فایل `~/.ssh/config` اتصالات ssh خود را مقداری بهبود دهید:
+
+```bash
       TCPKeepAlive=yes
       ServerAliveInterval=15
       ServerAliveCountMax=6
@@ -331,34 +363,75 @@ Bash مقدماتی یاد بگیرید. می‌توانید با تایپ کر�
       ControlPersist yes
 ```
 
-- A few other options relevant to ssh are security sensitive and should be enabled with care, e.g. per subnet or host or in trusted networks: `StrictHostKeyChecking=no`, `ForwardAgent=yes`
+</li>
+<li>
 
-- Consider [`mosh`](https://mosh.mit.edu/) an alternative to ssh that uses UDP, avoiding dropped connections and adding convenience on the road (requires server-side setup).
+چند گزینه دیگر مربوط به ssh مربوط به امنیت شبکه هستند و باید با آنها با احتیاط رفتار کنید: `StrictHostKeyChecking=no`, `ForwardAgent=yes`.
 
-- To get the permissions on a file in octal form, which is useful for system configuration but not available in `ls` and easy to bungle, use something like
+</li>
+<li>
+
+یک جایگزین خوب برای ssh، 
+<a href="https://mosh.mit.edu/">mosh</a>
+است که به جای TCP از UDP استفاده می‌کند که از قطع شدن دائمی ارتباط با سرور جلوگیری می‌کند (توجه کنید استفاده از mosh نیاز به نصب کردن آن در سمت سرور هم دارد). 
+
+</li>
+<li>
+
+برای دیدن اجازه‌های مربوط به یک فایل در مبنای ۸ (که برای تنظیم کردن سیستم مفید‌تر است) از چیزی مثل 
 ```sh
       stat -c '%A %a %n' /etc/timezone
 ```
+استفاده کنید. 
 
-- For interactive selection of values from the output of another command, use [`percol`](https://github.com/mooz/percol) or [`fzf`](https://github.com/junegunn/fzf).
+</li>
+<li>
 
-- For interaction with files based on the output of another command (like `git`), use `fpp` ([PathPicker](https://github.com/facebook/PathPicker)).
+برای انتخاب کردن مقادیر مورد نظر خود به صورت interactive از خروجی یک دستور، از 
+<a href="https://github.com/mooz/percol">percol</a>
+ یا 
+<a href="https://github.com/junegunn/fzf">fzf</a>
+ استفاده کنید. 
 
-- For a simple web server for all files in the current directory (and subdirs), available to anyone on your network, use:
-`python -m SimpleHTTPServer 7777` (for port 7777 and Python 2) and `python -m http.server 7777` (for port 7777 and Python 3).
+</li>
+<li>
 
-- For running a command as another user, use `sudo`. Defaults to running as root; use `-u` to specify another user. Use `-i` to login as that user (you will be asked for _your_ password).
 
-- For switching the shell to another user, use `su username` or `su - username`. The latter with "-" gets an environment as if another user just logged in. Omitting the username defaults to root. You will be asked for the password _of the user you are switching to_.
+برای تعامل کردن با فایل‌ها بر اساس خروجی یک دستور دیگر (مثلا گیت) از 
+<a href="https://github.com/facebook/PathPicker">fpp</a>
+ استفاده کنید.
 
-- Know about the [128K limit](https://wiki.debian.org/CommonErrorMessages/ArgumentListTooLong) on command lines. This "Argument list too long" error is common when wildcard matching large numbers of files. (When this happens alternatives like `find` and `xargs` may help.)
+</li>
+<li>
 
-- For a basic calculator (and of course access to Python in general), use the `python` interpreter. For example,
+برای درست کردن یک وب سرور ساده برای همه فایل‌ها در دایرکتوری فعلی، که قابل دسترس توسط همه افراد در شبکه شماست از `python -m http.server 7777` استفاده کنید. 
+
+</li>
+<li>
+
+برای اجرا کردن یک دستور از طرف یک کاربر دیگر از `sudo` استفاده کنید. این دستور بنابر پیش فرض کاربر را root در نظر می‌گیرد. از `-u` برای مشخص کردن یک کاربر دیگر استفاده کنید. از `-i` برای لاگین کردن به جای یک کاربر دیگر استفاده کنید (در اینصورت باید رمز عبور کاربری که می‌خواهید از طرف او لاگین کنید را وارد کنید). 
+
+</li>
+<li>
+
+در مورد محدودیت 
+<a href="https://wiki.debian.org/CommonErrorMessages/ArgumentListTooLong">128K</a>
+ مطالعه کنید. زمانی که تعداد ورودی‌های یک برنامه از طریق نام‌های گسترش‌پذیر متغیر خیلی طولانی شود با این محدودیت مواجه می‌شوید (زمانی که این اتفاق می‌افتد از جایگزین‌هایی مثل `find` و `xargs` استفاده کنید.
+
+</li>
+</li>
+
+از `python` می‌توانید به عنوان یک ماشین حساب ساده استفاده کنید:
+
+
 ```
 >>> 2+3
 5
 ```
 
+</li>
+</ul>
+</p>
 
 ## Processing files and data
 
