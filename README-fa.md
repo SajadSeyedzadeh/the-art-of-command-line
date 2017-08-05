@@ -516,17 +516,29 @@ Bash مقدماتی یاد بگیرید. می‌توانید با تایپ کر�
 </li>
 <li>
 
+در مورد دستور `wc` که برای شمردن تعداد خطوط (`-l`)، کلمات (`-w`)، کاراکتر‌ها (`-m`) و بایت‌ها (`-c`) استفاده می‌شود مطالعه کنید.
 
+</li>
+<li>
+
+در مورد دستور `tee` که برای کپی کردن محتویات Stdin به یک فایل یا به Stdout استفاده می‌شود مطالعه کنید (مثلا `ls -al | tee file.txt`). 
+
+</li>
+<li>
+
+برای انجام محاسبات نسبتا پیچیده که شامل گروه‌بندی، معکوس کردن و محاسبات اماری می‌شوند می‌توانید از 
+<a href="https://www.gnu.org/software/datamash/">datamash</a>
+ استفاده کنید. 
+
+</li>
+<li>
+
+به خاطر locality، خیلی از دستورات ترمینال تحت تاثیر قرار می‌گیرند، مثلا ترتیب مرتب‌سازی و کارآمدی (performance). خیلی از نسخه‌های لینوکس، مقدار متغیر محیطی `LANG` را به US English تنظیم می‌کنند. اما بدانید که 
 
 </li>
 </ul>
 </p>
 
-- Know about `wc` to count newlines (`-l`), characters (`-m`), words (`-w`) and bytes (`-c`).
-
-- Know about `tee` to copy from stdin to a file and also to stdout, as in `ls -al | tee file.txt`.
-
-- For more complex calculations, including grouping, reversing fields, and statistical calculations, consider [`datamash`](https://www.gnu.org/software/datamash/).
 
 - Know that locale affects a lot of command line tools in subtle ways, including sorting order (collation) and performance. Most Linux installations will set `LANG` or other locale variables to a local setting like US English. But be aware sorting will change if you change locale. And know i18n routines can make sort or other commands run *many times* slower. In some situations (such as the set operations or uniqueness operations below) you can safely ignore slow i18n routines entirely and use traditional byte-based sort order, using `export LC_ALL=C`.
 
