@@ -16,7 +16,7 @@
 - [اصول](#basics)
 - [استفاده روزمره](#everyday-use)
 - [پردازش فایل و داده](#processing-files-and-data)
-- [رفع باگ سیستم](#system-debugging)
+- [خطایابی سیستم](#system-debugging)
 - [دستورات یک خطی](#one-liners)
 - [گمنام اما مفید](#obscure-but-useful)
 - [مخصوص سیستم عامل OXS](#os-x-only)
@@ -533,25 +533,35 @@ Bash مقدماتی یاد بگیرید. می‌توانید با تایپ کر�
 </li>
 <li>
 
-به خاطر locality، خیلی از دستورات ترمینال تحت تاثیر قرار می‌گیرند، مثلا ترتیب مرتب‌سازی و کارآمدی (performance). خیلی از نسخه‌های لینوکس، مقدار متغیر محیطی `LANG` را به US English تنظیم می‌کنند. اما بدانید که 
+به خاطر locality، خیلی از دستورات ترمینال تحت تاثیر قرار می‌گیرند، مثلا ترتیب مرتب‌سازی و کارآمدی (performance). خیلی از نسخه‌های لینوکس، مقدار متغیر محیطی `LANG` را به US English تنظیم می‌کنند. اما بدانید که روتین‌های بین‌المللی‌سازی و محلی‌سازی (i18n) می‌توانند باعث شوند که دستورات مرتب‌سازی چندین مرتبه کندتر اجرا شوند. در بعضی شرایط می‌توانید با کمک `export LC_ALL=C` این روتین‌ها را نادیده بگیرید و از مرتب‌سازی سنتی مبتنی بر بایت‌ها کمک بگیرید. 
 
 </li>
-</ul>
-</p>
+<li>
 
+به این روش می‌توانید از متغیرهای محیطی یک دستور خاص استفاده کنید:‌ قبل از فراخوانی دستور متغیر محلی را ست کنید. مثلا:‌ `TZ=Pacific/Fiji date`
 
-- Know that locale affects a lot of command line tools in subtle ways, including sorting order (collation) and performance. Most Linux installations will set `LANG` or other locale variables to a local setting like US English. But be aware sorting will change if you change locale. And know i18n routines can make sort or other commands run *many times* slower. In some situations (such as the set operations or uniqueness operations below) you can safely ignore slow i18n routines entirely and use traditional byte-based sort order, using `export LC_ALL=C`.
+</li>
+<li>
 
-- You can set a specific command's environment by prefixing its invocation with the environment variable settings, as in `TZ=Pacific/Fiji date`.
+در مورد کار با داده از طریق `awk` و `sed` اطلاعات اولیه‌ای به دست آورید.
 
-- Know basic `awk` and `sed` for simple data munging. See [One-liners](#one-liners) for examples.
+</li>
+<li>
 
-- To replace all occurrences of a string in place, in one or more files:
+برای جا به جا کردن همه رخداد‌های یک زیر رشته در یک یا چند فایل از دستور زیر استفاده کنید: 
+
 ```sh
       perl -pi.bak -e 's/old-string/new-string/g' my-files-*.txt
 ```
 
-- To rename multiple files and/or search and replace within files, try [`repren`](https://github.com/jlevy/repren). (In some cases the `rename` command also allows multiple renames, but be careful as its functionality is not the same on all Linux distributions.)
+</li>
+<li>
+
+برای عوض کردن اسم چندین فایل به صورت همزمان، یا جستجو میان چندین فایل و یا جایگزینی چندین فایل از دستور 
+<a href="https://github.com/jlevy/repren">repen</a>
+ استفاده کنید. (در برخی از موارد، دستور `rename` هم می‌تواند برای تغییر نام چندین فایل استفاده شود اما در استفاده از آن دقت کنید چرا که نحوه کارکرد آن در توزیع‌های مختلف لینوکس متفاوت است. 
+
+
 ```sh
       # Full rename of filenames, directories, and contents foo -> bar:
       repren --full --preserve-case --from foo --to bar .
@@ -561,49 +571,112 @@ Bash مقدماتی یاد بگیرید. می‌توانید با تایپ کر�
       rename 's/\.bak$//' *.bak
 ```
 
-- As the man page says, `rsync` really is a fast and extraordinarily versatile file copying tool. It's known for synchronizing between machines but is equally useful locally. When security restrictions allow, using `rsync` instead of `scp` allows recovery of a transfer without restarting from scratch. It also is among the [fastest ways](https://web.archive.org/web/20130929001850/http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html) to delete large numbers of files:
+</li>
+<li>
+
+دستور `rsync` یک ابزار بسیار سریع و کارآمد برای کپی کردن داده و فایل است. یکی از شاخصه‌های مهم آن قابلیت سینک شدن بین چندین کامپیوتر است اما برای استفاده محلی هم می‌تواند بسیار مفید باشد. زمانی که محدودیت‌های امنیتی اجازه دهند، استفاده از `rsync` به جای `scp` اجازه می‌دهد که یک عملیات انتقال فایل را از میانه ادامه دهید به جای اینکه مجبور باشید از اول شروع کنید. همچنین، این دستور از 
+<a href="https://web.archive.org/web/20130929001850/http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html">سریع‌ترین</a>
+ روش‌های پاک کردن تعداد زیادی فایل است. 
+
 ```sh
 mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 ```
 
-- For seeing progress when copying files, use `pv`, [`pycp`](https://github.com/dmerejkowsky/pycp), [`progress`](https://github.com/Xfennec/progress), `rsync --progress`, or, for block-level copying, `dd status=progress`.
+</li>
+<li>
 
-- Use `shuf` to shuffle or select random lines from a file.
+برای دیدن مقدار پیشرفت حین کپی شدن فایل‌ها از `pv`، 
+<a href="https://github.com/dmerejkowsky/pycp">pycp</a>
+، 
+<a href="https://github.com/Xfennec/progress">progress</a>
+ استفاده کنید. برای کپی کردن فایل در سطح بلاک داده از `dd status=progress` استفاده کنید. 
 
-- Know `sort`'s options. For numbers, use `-n`, or `-h` for handling human-readable numbers (e.g. from `du -h`). Know how keys work (`-t` and `-k`). In particular, watch out that you need to write `-k1,1` to sort by only the first field; `-k1` means sort according to the whole line. Stable sort (`sort -s`) can be useful. For example, to sort first by field 2, then secondarily by field 1, you can use `sort -k1,1 | sort -s -k2,2`.
+</li>
+<li>
 
-- If you ever need to write a tab literal in a command line in Bash (e.g. for the -t argument to sort), press **ctrl-v** **[Tab]** or write `$'\t'` (the latter is better as you can copy/paste it).
+از دستور `shuff` برای شافل کردن یا انتخاب تصادفی خطوطی از یک فایل استفاده کنید. 
 
-- The standard tools for patching source code are `diff` and `patch`. See also `diffstat` for summary statistics of a diff and `sdiff` for a side-by-side diff. Note `diff -r` works for entire directories. Use `diff -r tree1 tree2 | diffstat` for a summary of changes. Use `vimdiff` to compare and edit files.
+</li>
+<li>
 
-- For binary files, use `hd`, `hexdump` or `xxd` for simple hex dumps and `bvi`, `hexedit` or `biew` for binary editing.
+گزینه‌های مربوط به دستور `sort` را بدانید. برای اعداد از `-n` یا `-h` استفاده کنید. در مورد نحوه کارکرد کلید‌ها (مخصوصا `-t` و  `-k`) مطالعه کنید. برای مرتب کردن یک فایل فقط بر اساس فیلد اول باید از دستور `-k1,1` استفاده کنید. `-k1` به این معنی است که مرتب‌سازی بر اساس کل خط باید انجام شود. مرتب‌سازی پایدار `sort -s` می‌تواند خیلی مفید باشد. مثلا اگر می‌خواهید فایل را بر اساس فیلد دوم و سپس بر اساس فیلد اول مرتب سازی کنید از دستور `sort -k1,1 | sort -s k2,2` استفاده کنید. 
 
-- Also for binary files, `strings` (plus `grep`, etc.) lets you find bits of text.
+</li>
+<li>
 
-- For binary diffs (delta compression), use `xdelta3`.
+اگر می‌خواهید در یک دستور کاراکتر تب را تایپ کنید، مثلا به عنوان ورودی `-t` در مرتب سازی، از **ctrl-v** **[Tab]** استفاده کنید. همچنین می‌توانید از `$'\t'` هم استفاده کنید. روش دوم روش بهتری است چرا که می‌توان آن را به راحتی کپی و پیست کرد. 
 
-- To convert text encodings, try `iconv`. Or `uconv` for more advanced use; it supports some advanced Unicode things. For example, this command lowercases and removes all accents (by expanding and dropping them):
+</li>
+<li>
+
+ابزارهای استاندارد برای patch کردن فایل و کد `diff` و `patch` هستند. همچین می‌توانید از `diffstat` برای خلاصه‌ای از امار `diff` و `sdiff` برای دیدن تفاوت‌های دو فایل در کنار هم استفاده کنید. توجه کنید که `diff -r` برای کل یک دایرکتوری اجرا می‌شود. از `diff -r tree1 tree2 | diffstat` برای دیدن خلاصه‌ای از امار تغییرات می‌توانید استفاده کنید. `vimdiff` برای دیدن تفاوت ها و سپس ویرایش فایل استفاده می‌شود. 
+
+</li>
+<li>
+
+برای دیدن فایل‌های باینری از `hd` و `hexdump` استفاده کنید. برای ویرایش فایل‌های باینری می‌توانید از دستورات `bvi` `hexedit` `biew` استفاده کنید. 
+
+</li>
+<li>
+
+همچنین برای پیدا کردن رشته‌های متنی در فایل باینری می‌توان از دستور `string` (همراه با دستور `grpe`) استفاده کرد. 
+
+</li>
+<li>
+
+برای دیدن تفاوت میان دو فایل باینری از دستور `xdelta3` استفاده کنید. 
+
+</li>
+<li>
+
+برای تبدیل کردن encoding های مختلف متن به هم از دستور `iconv` استفاده کنید. برای استفاده پیشرفته‌تر می‌توان از دستور `uconv` هم استفاده کرد. این دستور از عملیات های پیچیده‌تر مربوط به uniocde پشتیبانی می‌کند. مثلا با دستور زیر می‌توانید همه حروف را کوچک کنید:
+
 ```sh
       uconv -f utf-8 -t utf-8 -x '::Any-Lower; ::Any-NFD; [:Nonspacing Mark:] >; ::Any-NFC; ' < input.txt > output.txt
 ```
 
-- To split files into pieces, see `split` (to split by size) and `csplit` (to split by a pattern).
+</li>
+<li>
 
-- To manipulate date and time expressions, use `dateadd`, `datediff`, `strptime` etc. from [`dateutils`](http://www.fresse.org/dateutils/).
+برای تقیسم کردن یک فایل به چند تکه، از دستور `split` برای تقسیم کردن بر اساس حجم، یا `csplit` برای تقسیم کردن بر اساس یک الگو (pattern) استفاده کنید. 
 
-- Use `zless`, `zmore`, `zcat`, and `zgrep` to operate on compressed files.
+</li>
+<li>
 
-- File attributes are settable via `chattr` and offer a lower-level alternative to file permissions. For example, to protect against accidental file deletion the immutable flag:  `sudo chattr +i /critical/directory/or/file`
+برای دستکاری داده تاریخ و زمان از`dateadd` `datediff` `strptime` استفاده کنید. 
 
-- Use `getfacl` and `setfacl` to save and restore file permissions. For example:
+</li>
+<li>
+
+از `zless`, `zmore`, `zcat`, و `zgrep` برای کار با فایل‌های فشرده استفاده کنید.
+
+</li>
+<li>
+
+ویژگی‌ها و مشخصات یک فایل را می‌توان با دستور `chattr` عوض کرد. این دستور یک راه حل برای تغییر اجازه‌های مربوط به فایل است. مثلا برای جلوگیری از پاک شدن تصادفی فایل‌ها می‌توان یک flag تغییرناشدنی به هر فایلی اضافه کرد: `sudo chattr +i /critical/directory/or/file`
+
+
+</li>
+<li>
+
+می‌توان از `getfacl` و `setfacl` برای ذخیره یا بازیابی اجازه‌های مربوط به یک فایل استفاده کرد. مثلا: 
+
 ```sh
    getfacl -R /some/path > permissions.txt
    setfacl --restore=permissions.txt
 ```
 
-- To create empty files quickly, use `truncate` (creates [sparse file](https://en.wikipedia.org/wiki/Sparse_file)), `fallocate` (ext4, xfs, btrfs and ocfs2 filesystems), `xfs_mkfile` (almost any filesystems, comes in xfsprogs package), `mkfile` (for Unix-like systems like Solaris, Mac OS).
+</li>
+<li>
 
-## System debugging
+برای ایجاد سریع فایل‌های خالی از دستور `truncate` استفاده کنید. گزینه‌های دیگر `fallocate` `xfs_mkfile` `mkfile` هستند. 
+
+</li>
+</ul>
+</p>
+
+
+<h2 id="system-debugging">خطایابی سیستم</h2>
 
 - For web debugging, `curl` and `curl -I` are handy, or their `wget` equivalents, or the more modern [`httpie`](https://github.com/jkbrzt/httpie).
 
